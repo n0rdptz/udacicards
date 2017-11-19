@@ -1,23 +1,57 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, StatusBar } from 'react-native';
+import Deck from 'components/Deck/Deck';
+import NewDeck from 'components/NewDeck/NewDeck';
+import { Constants } from 'expo';
+import { TabNavigator, StackNavigator } from 'react-navigation';
+import { purple, white } from './utils/colors'
+
+function CardsStatusBar ({backgroundColor, ...props}) {
+  return (
+    <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
+      <StatusBar translucent backgroundColor={backgroundColor} {...props} />
+    </View>
+  )
+}
+
+const Tabs = TabNavigator({
+  Decks: {
+    screen: Deck,
+    navigationOptions: {
+      tabBarLabel: 'Decks'
+    },
+  },
+  NewDeck: {
+    screen: NewDeck,
+    navigationOptions: {
+      tabBarLabel: 'New Deck'
+    },
+  }
+}, {}
+);
+
+const MainNavigator = StackNavigator({
+  Home: {
+    screen: Tabs,
+  },
+  Deck: {
+    screen: Deck,
+    // navigationOptions: {
+    //   headerTintColor: white,
+    //   headerStyle: {
+    //     backgroundColor: purple,
+    //   }
+    // }
+  }
+});
 
 export default class App extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
+      <View style={{flex: 1}}>
+        <CardsStatusBar backgroundColor={purple} barStyle="light-content" />
+        <MainNavigator />
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
