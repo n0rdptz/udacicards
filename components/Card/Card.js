@@ -30,7 +30,6 @@ const CorrectBtn = styled.View`
   padding: 10px;
   padding-left: 30px;
   padding-right: 30px;
-  height: 30px;
   border-radius: 2px;
   justify-content: center;
   align-items: center;
@@ -40,7 +39,6 @@ const IncorrectBtn = styled.View`
   padding: 10px;
   padding-left: 30px;
   padding-right: 30px;
-  height: 30px;
   border-radius: 2px;
   justify-content: center;
   align-items: center;

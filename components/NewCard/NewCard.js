@@ -42,7 +42,6 @@ const styles = {
     padding: 10,
     paddingLeft: 30,
     paddingRight: 30,
-    height: 30,
     borderRadius: 2,
     alignSelf: 'flex-end',
     justifyContent: 'center',

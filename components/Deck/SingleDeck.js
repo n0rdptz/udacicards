@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableNativeFeedback } from 'react-native';
 import { white, red, darkGray } from '../../utils/colors';
+import styled from 'styled-components/native';
+
+const StartBtnText = styled.Text`
+  color: ${white};
+`;
 
 class SingleDeck extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -18,12 +23,12 @@ class SingleDeck extends Component {
         <View style={styles.btnsContainer}>
           <TouchableNativeFeedback background={TouchableNativeFeedback.Ripple(red)} onPress={() => this.props.navigation.navigate('NewCard')} >
             <View style={styles.addBtn}>
-              <Text class={styles.addBtnText}>Add card</Text>
+              <Text>Add card</Text>
             </View>
           </TouchableNativeFeedback>
           <TouchableNativeFeedback background={TouchableNativeFeedback.Ripple(white)} onPress={() => this.props.navigation.navigate('Quiz')} >
             <View style={styles.startBtn}>
-              <Text class={styles.startBtnText}>Start quiz</Text>
+              <StartBtnText>Start quiz</StartBtnText>
             </View>
           </TouchableNativeFeedback>
         </View>
@@ -64,7 +69,6 @@ const styles = StyleSheet.create({
     padding: 10,
     paddingLeft: 30,
     paddingRight: 30,
-    height: 30,
     borderWidth: 1,
     borderColor: '#000',
     borderRadius: 2,
@@ -74,22 +78,15 @@ const styles = StyleSheet.create({
     backgroundColor: white,
     marginRight: 10
   },
-  addBtnText: {
-    color: white
-  },
   startBtn: {
     padding: 10,
     paddingLeft: 30,
     paddingRight: 30,
-    height: 30,
     borderRadius: 2,
     alignSelf: 'flex-end',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: red
-  },
-  startBtnText: {
-    color: white
   },
   btnsContainer: {
     flexDirection: 'row',

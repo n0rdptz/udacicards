@@ -4,7 +4,7 @@ import { yellow, white } from '../../utils/colors';
 import styled from 'styled-components/native';
 
 const Btn = styled.TouchableOpacity`
-  padding: 5px 30px;
+  padding: 10px 30px;
   background-color: ${yellow};
   border-radius: 2px;
 `;
