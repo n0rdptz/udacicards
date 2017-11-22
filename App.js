@@ -1,10 +1,13 @@
 import React from 'react';
-import { StyleSheet, Text, View, StatusBar } from 'react-native';
-import Deck from 'components/Deck/Deck';
-import NewDeck from 'components/NewDeck/NewDeck';
+import { View, StatusBar } from 'react-native';
+import SingleDeck from './components/Deck/SingleDeck';
+import NewCard from './components/NewCard/NewCard';
+import Quiz from './components/Quiz/Quiz';
+import DeckList from './components/DeckList/DeckList';
+import NewDeck from './components/NewDeck/NewDeck';
 import { Constants } from 'expo';
 import { TabNavigator, StackNavigator } from 'react-navigation';
-import { purple, white } from './utils/colors'
+import { green, black } from './utils/colors'
 
 function CardsStatusBar ({backgroundColor, ...props}) {
   return (
@@ -16,7 +19,7 @@ function CardsStatusBar ({backgroundColor, ...props}) {
 
 const Tabs = TabNavigator({
   Decks: {
-    screen: Deck,
+    screen: DeckList,
     navigationOptions: {
       tabBarLabel: 'Decks'
     },
@@ -27,29 +30,65 @@ const Tabs = TabNavigator({
       tabBarLabel: 'New Deck'
     },
   }
-}, {}
-);
+}, {
+  navigationOptions: {
+    header: null
+  },
+  tabBarOptions: {
+    activeTintColor: black,
+    style: {
+      height: 56,
+      backgroundColor: green,
+      shadowColor: 'rgba(0, 0, 0, 0.24)',
+      shadowOffset: {
+        width: 0,
+        height: 3
+      },
+      shadowRadius: 6,
+      shadowOpacity: 1
+    }
+  }
+});
 
 const MainNavigator = StackNavigator({
   Home: {
     screen: Tabs,
   },
-  Deck: {
-    screen: Deck,
-    // navigationOptions: {
-    //   headerTintColor: white,
-    //   headerStyle: {
-    //     backgroundColor: purple,
-    //   }
-    // }
-  }
+  SingleDeck: {
+    screen: SingleDeck,
+    navigationOptions: {
+      headerTintColor: black,
+      headerStyle: {
+        backgroundColor: green,
+      }
+    }
+  },
+  NewCard: {
+    screen: NewCard,
+    navigationOptions: {
+      title: 'Add card',
+      headerTintColor: black,
+      headerStyle: {
+        backgroundColor: green,
+      }
+    }
+  },
+  Quiz: {
+    screen: Quiz,
+    navigationOptions: {
+      headerTintColor: black,
+      headerStyle: {
+        backgroundColor: green,
+      }
+    }
+  },
 });
 
 export default class App extends React.Component {
   render() {
     return (
       <View style={{flex: 1}}>
-        <CardsStatusBar backgroundColor={purple} barStyle="light-content" />
+        <CardsStatusBar backgroundColor={green} barStyle="light-content" />
         <MainNavigator />
       </View>
     );

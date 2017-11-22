@@ -2,18 +2,18 @@ import React, { Component } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableNativeFeedback } from 'react-native';
 import { white, red } from '../../utils/colors';
 
-class NewDeck extends Component {
+class NewCard extends Component {
   render() {
     return (
       <View style={styles.container}>
         <View style={styles.form}>
-          <Text style={styles.text}>What is the title of your new deck?</Text>
-          <TextInput style={styles.input} placeholder="Deck title" editable = {true} />
+          <TextInput style={styles.question} placeholder="Question" editable = {true} />
+          <TextInput style={styles.answer} placeholder="Answer" editable = {true} />
         </View>
 
         <TouchableNativeFeedback background={TouchableNativeFeedback.Ripple(white)}>
-          <View style={styles.createBtn}>
-            <Text style={styles.createBtnText}>Create</Text>
+          <View style={styles.addBtn}>
+            <Text style={styles.addBtnText}>Add</Text>
           </View>
         </TouchableNativeFeedback>
       </View>
@@ -29,17 +29,16 @@ const styles = {
     padding: 20
   },
   form: {},
-  text: {
-    fontSize: 20,
-    alignSelf: 'center',
-    textAlign: 'center'
+  question: {
+    padding: 10,
+    fontSize: 16
   },
-  input: {
+  answer: {
     marginTop: 10,
     padding: 10,
     fontSize: 16
   },
-  createBtn: {
+  addBtn: {
     padding: 10,
     paddingLeft: 30,
     paddingRight: 30,
@@ -50,9 +49,9 @@ const styles = {
     alignItems: 'center',
     backgroundColor: red
   },
-  createBtnText: {
+  addBtnText: {
     color: white
   }
 };
 
-export default NewDeck;
+export default NewCard;
