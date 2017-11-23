@@ -7,7 +7,8 @@ import DeckList from './components/DeckList/DeckList';
 import NewDeck from './components/NewDeck/NewDeck';
 import { Constants } from 'expo';
 import { TabNavigator, StackNavigator } from 'react-navigation';
-import { green, black } from './utils/colors'
+import { green, black } from './utils/colors';
+import { setLocalNotification } from './utils/notifications';
 
 function CardsStatusBar ({backgroundColor, ...props}) {
   return (
@@ -85,6 +86,10 @@ const MainNavigator = StackNavigator({
 });
 
 export default class App extends React.Component {
+  componentDidMount() {
+    //setLocalNotification();
+  }
+
   render() {
     return (
       <View style={{flex: 1}}>
