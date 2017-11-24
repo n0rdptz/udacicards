@@ -19,12 +19,12 @@ class ListDeck extends Component {
   });
 
   render() {
-    const {isLast} = this.props;
+    const { deck } = this.props;
 
     return (
-      <DeckView style={isLast ? {marginBottom: 0} : {}}>
-        <Text>Deck title</Text>
-        <Text>0 cards</Text>
+      <DeckView>
+        <Text>{deck.title}</Text>
+        <Text>{deck.questions.length ? deck.questions.length : 0} cards</Text>
       </DeckView>
     )
   }

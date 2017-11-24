@@ -14,6 +14,16 @@ class DeckList extends Component {
       .then(decks => this.setState({decks}));
   }
 
+  // componentDidUpdate(prevProps) {
+  //   const prevRoute = prevProps.navigation.state.routeName;
+  //   const currentRoute = this.props.navigation.state.routeName;
+  //
+  //   if (prevRoute === 'NewDeck') {
+  //     getDecks()
+  //       .then(decks => this.setState({decks}));
+  //   }
+  // }
+
   keyExtractor = (item, index) => index;
 
   render() {
@@ -32,7 +42,7 @@ class DeckList extends Component {
               style={styles.list}
               data={decks}
               renderItem={({item}) =>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('SingleDeck')}>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('SingleDeck', {deck: item})}>
                   <ListDeck deck={item} />
                 </TouchableOpacity>
               }

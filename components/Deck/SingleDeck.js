@@ -8,25 +8,31 @@ const StartBtnText = styled.Text`
 `;
 
 class SingleDeck extends Component {
-  static navigationOptions = ({ navigation }) => ({
-    title: `Deck title`
-  });
+  static navigationOptions = ({ navigation }) => {
+    const { deck } = navigation.state.params;
+
+    return {
+      title: deck.title
+    }
+  };
 
   render() {
+    const { deck } = this.props.navigation.state.params;
+
     return (
       <View style={styles.deck}>
         <View style={styles.deckText}>
-          <Text style={styles.deckTitle}>Deck title</Text>
-          <Text style={styles.deckCards}>0 cards</Text>
+          <Text style={styles.deckTitle}>{deck.title}</Text>
+          <Text style={styles.deckCards}>{deck.questions.length ? deck.questions.length : 0} cards</Text>
         </View>
 
         <View style={styles.btnsContainer}>
-          <TouchableNativeFeedback background={TouchableNativeFeedback.Ripple(red)} onPress={() => this.props.navigation.navigate('NewCard')} >
+          <TouchableNativeFeedback background={TouchableNativeFeedback.Ripple(red)} onPress={() => this.props.navigation.navigate('NewCard', {deck})} >
             <View style={styles.addBtn}>
               <Text>Add card</Text>
             </View>
           </TouchableNativeFeedback>
-          <TouchableNativeFeedback background={TouchableNativeFeedback.Ripple(white)} onPress={() => this.props.navigation.navigate('Quiz')} >
+          <TouchableNativeFeedback background={TouchableNativeFeedback.Ripple(white)} onPress={() => this.props.navigation.navigate('Quiz', {deck})} >
             <View style={styles.startBtn}>
               <StartBtnText>Start quiz</StartBtnText>
             </View>

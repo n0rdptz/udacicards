@@ -1,17 +1,34 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableNativeFeedback } from 'react-native';
 import { white, red } from '../../utils/colors';
+import { saveDeckTitle } from "../../utils/api";
 
 class NewDeck extends Component {
+  state = {
+    text: ''
+  };
+
+  saveDeck () {
+    saveDeckTitle(this.state.text);
+  }
+
   render() {
     return (
       <View style={styles.container}>
         <View style={styles.form}>
           <Text style={styles.text}>What is the title of your new deck?</Text>
-          <TextInput style={styles.input} placeholder="Deck title" editable = {true} />
+          <TextInput
+            style={styles.input}
+            placeholder="Deck title"
+            editable={true}
+            onChangeText={(text) => this.setState({text})}
+            value={this.state.text}
+          />
         </View>
 
-        <TouchableNativeFeedback background={TouchableNativeFeedback.Ripple(white)}>
+        <TouchableNativeFeedback
+          background={TouchableNativeFeedback.Ripple(white)}
+          onPress={() => this.saveDeck()}>
           <View style={styles.createBtn}>
             <Text style={styles.createBtnText}>Create</Text>
           </View>
