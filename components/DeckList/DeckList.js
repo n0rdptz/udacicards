@@ -1,36 +1,24 @@
 import React, { Component } from 'react';
 import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import ListDeck from '../Deck/ListDeck';
-import { gray, green, white } from '../../utils/colors';
-import { getDecks } from "../../utils/api";
+import { white } from '../../utils/colors';
+import { connect } from 'react-redux';
+import { getDecks } from "../../actions/index";
 
 class DeckList extends Component {
-  state = {
-    decks: null
-  };
-
   componentDidMount() {
-    getDecks()
-      .then(decks => this.setState({decks}));
-  }
+    const { dispatch } = this.props;
 
-  // componentDidUpdate(prevProps) {
-  //   const prevRoute = prevProps.navigation.state.routeName;
-  //   const currentRoute = this.props.navigation.state.routeName;
-  //
-  //   if (prevRoute === 'NewDeck') {
-  //     getDecks()
-  //       .then(decks => this.setState({decks}));
-  //   }
-  // }
+    dispatch(getDecks());
+  }
 
   keyExtractor = (item, index) => index;
 
   render() {
     let decks = [];
-    for (let deck in this.state.decks) {
-      if (this.state.decks.hasOwnProperty(deck)) {
-        decks.push(this.state.decks[deck]);
+    for (let deck in this.props.decks) {
+      if (this.props.decks.hasOwnProperty(deck)) {
+        decks.push(this.props.decks[deck]);
       }
     }
 
@@ -82,4 +70,8 @@ const styles = StyleSheet.create({
   }
 });
 
-export default DeckList;
+const mapStateToProps = decks => {
+  return {decks};
+};
+
+export default connect(mapStateToProps)(DeckList);

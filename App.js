@@ -9,6 +9,8 @@ import { Constants } from 'expo';
 import { TabNavigator, StackNavigator } from 'react-navigation';
 import { green, black } from './utils/colors';
 import { setLocalNotification } from './utils/notifications';
+import { Provider } from 'react-redux';
+import configureStore from './store/configureStore';
 
 function CardsStatusBar ({backgroundColor, ...props}) {
   return (
@@ -85,6 +87,8 @@ const MainNavigator = StackNavigator({
   },
 });
 
+const store = configureStore();
+
 export default class App extends React.Component {
   componentDidMount() {
     //setLocalNotification();
@@ -92,10 +96,12 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <View style={{flex: 1}}>
-        <CardsStatusBar backgroundColor={green} barStyle="light-content" />
-        <MainNavigator />
-      </View>
+      <Provider store={store}>
+        <View style={{flex: 1}}>
+          <CardsStatusBar backgroundColor={green} barStyle="light-content" />
+          <MainNavigator />
+        </View>
+      </Provider>
     );
   }
 }

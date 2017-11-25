@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, StyleSheet, TouchableNativeFeedback } from 'react-native';
+import { View, Text, TextInput, StyleSheet, TouchableNativeFeedback, KeyboardAvoidingView  } from 'react-native';
 import { white, red } from '../../utils/colors';
-import { addCardToDeck } from "../../utils/api";
+import { connect } from 'react-redux';
+import { addCard } from "../../actions/index";
 
 class NewCard extends Component {
   state = {
@@ -11,16 +12,18 @@ class NewCard extends Component {
 
   saveQuestion () {
     const { deck } = this.props.navigation.state.params;
+    const { dispatch } = this.props;
 
-    addCardToDeck(
-      deck.title,
-      {
-        question: this.state.question,
-        answer: this.state.answer
-      }
+    dispatch(
+      addCard(
+        deck.title,
+        {
+          question: this.state.question,
+          answer: this.state.answer
+        }
+      )
     );
-
-    // update redux
+    this.props.navigation.goBack();
   }
 
   onQuestionChange(question) {
@@ -45,8 +48,7 @@ class NewCard extends Component {
     const { deck } = this.props.navigation.state.params;
 
     return (
-      <View style={styles.container}>
-        <Text>{deck.title}</Text>
+      <KeyboardAvoidingView style={styles.container}>
         <View style={styles.form}>
           <TextInput
             style={styles.question}
@@ -71,7 +73,7 @@ class NewCard extends Component {
             <Text style={styles.addBtnText}>Add</Text>
           </View>
         </TouchableNativeFeedback>
-      </View>
+      </KeyboardAvoidingView>
     )
   }
 }
@@ -108,4 +110,4 @@ const styles = {
   }
 };
 
-export default NewCard;
+export default connect()(NewCard);

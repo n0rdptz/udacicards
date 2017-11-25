@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, StyleSheet, TouchableNativeFeedback } from 'react-native';
+import { View, Text, TextInput, StyleSheet, TouchableNativeFeedback, KeyboardAvoidingView  } from 'react-native';
 import { white, red } from '../../utils/colors';
-import { saveDeckTitle } from "../../utils/api";
+import { connect } from 'react-redux';
+import { saveDeck } from "../../actions/index";
 
 class NewDeck extends Component {
   state = {
@@ -9,12 +10,15 @@ class NewDeck extends Component {
   };
 
   saveDeck () {
-    saveDeckTitle(this.state.text);
+    const { dispatch } = this.props;
+
+    dispatch(saveDeck(this.state.text));
+    this.props.navigation.goBack();
   }
 
   render() {
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView style={styles.container}>
         <View style={styles.form}>
           <Text style={styles.text}>What is the title of your new deck?</Text>
           <TextInput
@@ -33,7 +37,7 @@ class NewDeck extends Component {
             <Text style={styles.createBtnText}>Create</Text>
           </View>
         </TouchableNativeFeedback>
-      </View>
+      </KeyboardAvoidingView>
     )
   }
 }
@@ -71,4 +75,4 @@ const styles = {
   }
 };
 
-export default NewDeck;
+export default connect()(NewDeck);

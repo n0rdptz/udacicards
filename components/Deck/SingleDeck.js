@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableNativeFeedback } from 'react-native';
 import { white, red, darkGray } from '../../utils/colors';
 import styled from 'styled-components/native';
+import { connect } from 'react-redux';
 
 const StartBtnText = styled.Text`
   color: ${white};
@@ -17,7 +18,8 @@ class SingleDeck extends Component {
   };
 
   render() {
-    const { deck } = this.props.navigation.state.params;
+    const { title } = this.props.navigation.state.params.deck;
+    const deck = this.props.decks[title];
 
     return (
       <View style={styles.deck}>
@@ -100,4 +102,8 @@ const styles = StyleSheet.create({
   }
 });
 
-export default SingleDeck;
+const mapStateToProps = decks => {
+  return {decks};
+};
+
+export default connect(mapStateToProps)(SingleDeck);
