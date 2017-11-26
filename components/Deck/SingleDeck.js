@@ -29,16 +29,22 @@ class SingleDeck extends Component {
         </View>
 
         <View style={styles.btnsContainer}>
-          <TouchableNativeFeedback background={TouchableNativeFeedback.Ripple(red)} onPress={() => this.props.navigation.navigate('NewCard', {deck})} >
+          <TouchableNativeFeedback
+            background={TouchableNativeFeedback.Ripple(red)}
+            onPress={() => this.props.navigation.navigate('NewCard', {deck})} >
             <View style={styles.addBtn}>
               <Text>Add card</Text>
             </View>
           </TouchableNativeFeedback>
-          <TouchableNativeFeedback background={TouchableNativeFeedback.Ripple(white)} onPress={() => this.props.navigation.navigate('Quiz', {deck})} >
-            <View style={styles.startBtn}>
-              <StartBtnText>Start quiz</StartBtnText>
-            </View>
-          </TouchableNativeFeedback>
+          {deck.questions.length > 0 && (
+            <TouchableNativeFeedback
+              background={TouchableNativeFeedback.Ripple(white)}
+              onPress={() => this.props.navigation.navigate('Quiz', {deck})}>
+              <View style={styles.startBtn}>
+                <StartBtnText>Start quiz</StartBtnText>
+              </View>
+            </TouchableNativeFeedback>
+          )}
         </View>
       </View>
     )
@@ -84,9 +90,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: white,
-    marginRight: 10
   },
   startBtn: {
+    marginLeft: 10,
     padding: 10,
     paddingLeft: 30,
     paddingRight: 30,

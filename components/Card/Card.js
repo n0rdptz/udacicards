@@ -53,30 +53,43 @@ const IncorrectBtnText = styled.Text`
 `;
 
 class Card extends Component {
+  state = {
+    face: true,
+  };
+  onPressBtn(answer) {
+    this.props.onAnswered(answer);
+  }
+  flipCard() {
+    this.setState(prevState => {
+      return {face: !prevState.face};
+    });
+  }
+
   render() {
-    const variable = true;
+    const { face } = this.state;
+    const { question } = this.props;
 
     return (
       <ComponentContainer>
         <CardContainer>
-          {variable
+          {face
             ? (<CardTextContainer>
-                <CardText>Question</CardText>
-                <TextButton style={{marginTop: 20}} onPress={() => {}}>Answer</TextButton>
+                <CardText>{question.question}</CardText>
+                <TextButton style={{marginTop: 20}} onPress={() => this.flipCard()}>Answer</TextButton>
               </CardTextContainer>)
             : (<CardTextContainer>
-                <CardText>Answer</CardText>
-                <TextButton style={{marginTop: 20}} onPress={() => {}}>Question</TextButton>
+                <CardText>{question.answer}</CardText>
+                <TextButton style={{marginTop: 20}} onPress={() => this.flipCard()}>Question</TextButton>
               </CardTextContainer>)
           }
 
           <BtnsContainer>
-            <TouchableNativeFeedback background={TouchableNativeFeedback.Ripple(red)} onPress={() => {}} >
+            <TouchableNativeFeedback background={TouchableNativeFeedback.Ripple(red)} onPress={() => this.onPressBtn(true)}>
               <CorrectBtn>
                 <CorrectBtnText>Correct</CorrectBtnText>
               </CorrectBtn>
             </TouchableNativeFeedback>
-            <TouchableNativeFeedback background={TouchableNativeFeedback.Ripple(white)} onPress={() => {}} >
+            <TouchableNativeFeedback background={TouchableNativeFeedback.Ripple(white)} onPress={() => this.onPressBtn(false)} >
               <IncorrectBtn>
                 <IncorrectBtnText>Incorrect</IncorrectBtnText>
               </IncorrectBtn>
@@ -87,39 +100,5 @@ class Card extends Component {
     )
   }
 }
-
-const styles = StyleSheet.create({
-  addBtn: {
-    padding: 10,
-    paddingLeft: 30,
-    paddingRight: 30,
-    height: 30,
-    borderWidth: 1,
-    borderColor: '#000',
-    borderRadius: 2,
-    alignSelf: 'flex-end',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: white,
-    marginRight: 10
-  },
-  addBtnText: {
-    color: white
-  },
-  startBtn: {
-    padding: 10,
-    paddingLeft: 30,
-    paddingRight: 30,
-    height: 30,
-    borderRadius: 2,
-    alignSelf: 'flex-end',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: red
-  },
-  startBtnText: {
-    color: white
-  }
-});
 
 export default Card;
