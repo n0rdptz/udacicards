@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity, TouchableNativeFeedback } from 'react-native';
 import ListDeck from '../Deck/ListDeck';
-import { white } from '../../utils/colors';
+import { red, white } from '../../utils/colors';
 import { connect } from 'react-redux';
-import { getDecks } from "../../actions/index";
+import { getDecks, removeDecks } from "../../actions/index";
+import styled from 'styled-components/native';
+
+const StartBtnText = styled.Text`
+  color: ${white};
+`;
 
 class DeckList extends Component {
   componentDidMount() {
@@ -13,6 +18,12 @@ class DeckList extends Component {
   }
 
   keyExtractor = (item, index) => index;
+
+  removeDecks() {
+    const { dispatch } = this.props;
+
+    dispatch(removeDecks());
+  }
 
   render() {
     let decks = [];
@@ -26,16 +37,26 @@ class DeckList extends Component {
       <View style={styles.container}>
         {decks && decks.length > 0
           ? (
-            <FlatList
-              style={styles.list}
-              data={decks}
-              renderItem={({item}) =>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('SingleDeck', {deck: item})}>
-                  <ListDeck deck={item} />
-                </TouchableOpacity>
-              }
-              keyExtractor={this.keyExtractor}>
-            </FlatList>
+            <View style={{flex: 1}}>
+              <FlatList
+                style={styles.list}
+                data={decks}
+                renderItem={({item}) =>
+                  <TouchableOpacity onPress={() => this.props.navigation.navigate('SingleDeck', {deck: item})}>
+                    <ListDeck deck={item} />
+                  </TouchableOpacity>
+                }
+                keyExtractor={this.keyExtractor}>
+              </FlatList>
+
+              <TouchableNativeFeedback
+                background={TouchableNativeFeedback.Ripple(white)}
+                onPress={() => this.removeDecks()}>
+                <View style={styles.startBtn}>
+                  <StartBtnText>Remove decks</StartBtnText>
+                </View>
+              </TouchableNativeFeedback>
+            </View>
           )
           : (
             <View style={styles.message}>
@@ -67,7 +88,18 @@ const styles = StyleSheet.create({
   messageText: {
     fontSize: 18,
     textAlign: 'center'
-  }
+  },
+  startBtn: {
+    marginTop: 20,
+    padding: 10,
+    paddingLeft: 30,
+    paddingRight: 30,
+    borderRadius: 2,
+    alignSelf: 'flex-end',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: red
+  },
 });
 
 const mapStateToProps = decks => {

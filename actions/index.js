@@ -4,6 +4,7 @@ export const GET_DECKS = 'GET_DECKS';
 export const GET_DECK = 'GET_DECK';
 export const SAVE_DECK = 'SAVE_DECK';
 export const ADD_CARD = 'ADD_CARD';
+export const REMOVE_DECKS = 'REMOVE_DECKS';
 
 function getDecksCreator (decks) {
   return {
@@ -30,6 +31,11 @@ function addCardCreator (title, card) {
     card,
   }
 }
+function removeDecksCreator () {
+  return {
+    type: REMOVE_DECKS,
+  }
+}
 
 export function getDecks() {
   return (dispatch) => {
@@ -53,5 +59,11 @@ export function addCard(title, card) {
   return (dispatch) => {
     API.addCardToDeck(title, card)
       .then(() => dispatch(addCardCreator(title, card)));
+  };
+}
+export function removeDecks() {
+  return (dispatch) => {
+    API.removeDecks()
+      .then(() => dispatch(removeDecksCreator()));
   };
 }

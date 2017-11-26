@@ -32,3 +32,7 @@ export function addCardToDeck (title, card) {
       return AsyncStorage.setItem(DATA_STORAGE_KEY, JSON.stringify(data));
     });
 }
+
+export function removeDecks() {
+  return AsyncStorage.removeItem(DATA_STORAGE_KEY);
+}

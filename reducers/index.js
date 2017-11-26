@@ -3,6 +3,7 @@ import {
   GET_DECK,
   SAVE_DECK,
   ADD_CARD,
+  REMOVE_DECKS
 } from '../actions'
 
 function reducer (state = {}, action) {
@@ -33,6 +34,8 @@ function reducer (state = {}, action) {
           questions: [].concat(state[action.title].questions, [action.card])
         }
       };
+    case REMOVE_DECKS :
+      return {};
     default :
       return state
   }
