@@ -91,7 +91,7 @@ const store = configureStore();
 
 export default class App extends React.Component {
   componentDidMount() {
-    //setLocalNotification();
+    setLocalNotification();
   }
 
   render() {

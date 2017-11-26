@@ -1,6 +1,7 @@
 import { AsyncStorage } from 'react-native';
 import { NOTIFY_STORAGE_KEY } from '../config/config';
 import { Notifications, Permissions } from 'expo'
+import moment from 'moment';
 
 export function clearLocalNotification () {
   return AsyncStorage
@@ -11,7 +12,7 @@ export function clearLocalNotification () {
 function createNotification () {
   return {
     title: 'Time to pass quiz!',
-    body: "Time to pass quiz!",
+    body: "Hey, do not forget to repeat the cards you studied",
     android: {
       sound: true,
       priority: 'high',
@@ -31,15 +32,15 @@ export function setLocalNotification () {
             if (status === 'granted') {
               Notifications.cancelAllScheduledNotificationsAsync();
 
-              let tomorrow = new Date();
-              tomorrow.setDate(tomorrow.getDate() + 1);
-              tomorrow.setHours(20);
-              tomorrow.setMinutes(0);
+              let date = new Date();
+              date.setDate(date.getDate() + 1);
+              date.setHours(15);
+              date.setMintutes(0);
 
-              Notifications.scheduleLocalNotificationsAsync(
+              Notifications.scheduleLocalNotificationAsync(
                 createNotification(),
                 {
-                  time: tomorrow,
+                  time: date,
                   repeat: 'day',
                 }
               );

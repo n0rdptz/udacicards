@@ -5,6 +5,10 @@ import QuizCounter from '../QuizCounter/QuizCounter';
 import styled from 'styled-components/native';
 import { gray, white } from '../../utils/colors';
 import TextButton from '../../components/TextButton/TextButton';
+import {
+  setLocalNotification,
+  clearLocalNotification
+} from "../../utils/notifications";
 
 const QuizContainer = styled.View`
   flex: 1;
@@ -73,6 +77,9 @@ class Quiz extends Component {
           percent: Number(prevState.correct * 100 / deck.questions.length).toFixed(1)
         }
       });
+
+      clearLocalNotification()
+        .then(setLocalNotification)
     }
   };
 
