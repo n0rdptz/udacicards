@@ -1,7 +1,6 @@
 import { AsyncStorage } from 'react-native';
 import { NOTIFY_STORAGE_KEY } from '../config/config';
 import { Notifications, Permissions } from 'expo'
-import moment from 'moment';
 
 export function clearLocalNotification () {
   return AsyncStorage

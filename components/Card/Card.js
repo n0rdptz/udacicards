@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableNativeFeedback } from 'react-native';
+import { View, Text, StyleSheet, TouchableNativeFeedback, Animated, Easing } from 'react-native';
 import { white, red, green } from '../../utils/colors';
 import styled from 'styled-components/native';
 import TextButton from '../../components/TextButton/TextButton';
@@ -7,13 +7,6 @@ import TextButton from '../../components/TextButton/TextButton';
 const ComponentContainer = styled.View`
   flex: 1;
   margin-top: 10px;
-`;
-const CardContainer = styled.View`
-  flex: 1;
-  border-radius: 2px;
-  padding: 20px;
-  background-color: ${white};
-  align-items: center; 
 `;
 const CardTextContainer = styled.View`
   flex: 1;
@@ -51,27 +44,56 @@ const CorrectBtnText = styled.Text`
 const IncorrectBtnText = styled.Text`
   color: ${white};
 `;
+const styles = StyleSheet.create({
+  cardContainer: {
+    flex: 1,
+    borderRadius: 2,
+    padding: 20,
+    backgroundColor: white,
+    alignItems: 'center',
+  }
+});
 
 class Card extends Component {
   state = {
     face: true,
+    scaleValue: new Animated.Value(1)
   };
   onPressBtn(answer) {
     this.props.onAnswered(answer);
   }
   flipCard() {
+    Animated.timing(
+      this.state.scaleValue,
+      {
+        easing: Easing.easeIn,
+        duration: 150,
+        toValue: 0,
+      }
+    ).start(() => this.flip());
+  }
+
+  flip() {
     this.setState(prevState => {
       return {face: !prevState.face};
     });
+    Animated.timing(
+      this.state.scaleValue,
+      {
+        easing: Easing.bounce,
+        duration: 400,
+        toValue: 1,
+      }
+    ).start();
   }
 
   render() {
-    const { face } = this.state;
+    const { face, scaleValue } = this.state;
     const { question } = this.props;
 
     return (
       <ComponentContainer>
-        <CardContainer>
+        <Animated.View style={[styles.cardContainer, {transform: [{scaleX: scaleValue}]}]}>
           {face
             ? (<CardTextContainer>
                 <CardText>{question.question}</CardText>
@@ -95,7 +117,7 @@ class Card extends Component {
               </IncorrectBtn>
             </TouchableNativeFeedback>
           </BtnsContainer>
-        </CardContainer>
+        </Animated.View>
       </ComponentContainer>
     )
   }
