@@ -84,6 +84,17 @@ class Quiz extends Component {
     }
   };
 
+  restart() {
+    const { deck } = this.props.navigation.state.params;
+
+    this.setState({
+      currentQuestion: deck.questions[0],
+      correct: 0,
+      percent: null,
+      counter: 1
+    });
+  }
+
   render() {
     const { deck } = this.props.navigation.state.params;
     const { currentQuestion, percent, counter } = this.state;
@@ -99,6 +110,7 @@ class Quiz extends Component {
           percent && (
             <CardContainer>
               <Text>Percent of correct answers {percent}%</Text>
+              <TextButton style={{marginTop: 20}} onPress={() => this.restart()}>Restart Quiz</TextButton>
               <TextButton style={{marginTop: 20}} onPress={() => this.props.navigation.goBack()}>Back</TextButton>
             </CardContainer>
           )
