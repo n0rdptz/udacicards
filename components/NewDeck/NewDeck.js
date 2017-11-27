@@ -6,14 +6,26 @@ import { saveDeck } from "../../actions/index";
 
 class NewDeck extends Component {
   state = {
-    text: ''
+    text: '',
+    isSaved: false
   };
 
   saveDeck () {
-    const { dispatch } = this.props;
+    this.props.dispatch(saveDeck(this.state.text));
+    this.setState(prevState => ({
+      ...prevState,
+      isSaved: true
+    }))
+  }
 
-    dispatch(saveDeck(this.state.text));
-    this.props.navigation.goBack();
+  componentDidUpdate() {
+    if (this.state.isSaved && this.props.decks[this.state.text]) {
+      this.props.navigation.navigate('SingleDeck', {deck: this.props.decks[this.state.text]});
+      this.setState({
+        text: '',
+        isSaved: false
+      });
+    }
   }
 
   render() {
@@ -75,4 +87,6 @@ const styles = {
   }
 };
 
-export default connect()(NewDeck);
+const mapStateToProps = decks => ({decks});
+
+export default connect(mapStateToProps)(NewDeck);

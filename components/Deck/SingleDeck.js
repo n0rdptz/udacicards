@@ -108,8 +108,6 @@ class SingleDeck extends Component {
   }
 }
 
-const mapStateToProps = decks => {
-  return {decks};
-};
+const mapStateToProps = decks => ({decks});
 
 export default connect(mapStateToProps)(SingleDeck);
