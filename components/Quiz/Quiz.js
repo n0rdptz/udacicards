@@ -74,7 +74,8 @@ class Quiz extends Component {
       this.setState(prevState => {
         return {
           ...prevState,
-          percent: Number(prevState.correct * 100 / deck.questions.length).toFixed(1)
+          correct,
+          percent: Number(correct * 100 / deck.questions.length).toFixed(1)
         }
       });
 
