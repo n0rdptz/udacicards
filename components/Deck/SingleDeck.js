@@ -4,53 +4,6 @@ import { white, red, darkGray } from '../../utils/colors';
 import styled from 'styled-components/native';
 import { connect } from 'react-redux';
 
-const StartBtnText = styled.Text`
-  color: ${white};
-`;
-
-class SingleDeck extends Component {
-  static navigationOptions = ({ navigation }) => {
-    const { deck } = navigation.state.params;
-
-    return {
-      title: deck.title
-    }
-  };
-
-  render() {
-    const { title } = this.props.navigation.state.params.deck;
-    const deck = this.props.decks[title];
-
-    return (
-      <View style={styles.deck}>
-        <View style={styles.deckText}>
-          <Text style={styles.deckTitle}>{deck.title}</Text>
-          <Text style={styles.deckCards}>{deck.questions.length ? deck.questions.length : 0} cards</Text>
-        </View>
-
-        <View style={styles.btnsContainer}>
-          <TouchableNativeFeedback
-            background={TouchableNativeFeedback.Ripple(red)}
-            onPress={() => this.props.navigation.navigate('NewCard', {deck})} >
-            <View style={styles.addBtn}>
-              <Text>Add card</Text>
-            </View>
-          </TouchableNativeFeedback>
-          {deck.questions.length > 0 && (
-            <TouchableNativeFeedback
-              background={TouchableNativeFeedback.Ripple(white)}
-              onPress={() => this.props.navigation.navigate('Quiz', {deck})}>
-              <View style={styles.startBtn}>
-                <StartBtnText>Start quiz</StartBtnText>
-              </View>
-            </TouchableNativeFeedback>
-          )}
-        </View>
-      </View>
-    )
-  }
-}
-
 const styles = StyleSheet.create({
   deck: {
     flex: 1,
@@ -107,6 +60,53 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end'
   }
 });
+
+const StartBtnText = styled.Text`
+  color: ${white};
+`;
+
+class SingleDeck extends Component {
+  static navigationOptions = ({ navigation }) => {
+    const { deck } = navigation.state.params;
+
+    return {
+      title: deck.title
+    }
+  };
+
+  render() {
+    const { title } = this.props.navigation.state.params.deck;
+    const deck = this.props.decks[title];
+
+    return (
+      <View style={styles.deck}>
+        <View style={styles.deckText}>
+          <Text style={styles.deckTitle}>{deck.title}</Text>
+          <Text style={styles.deckCards}>{deck.questions.length ? deck.questions.length : 0} cards</Text>
+        </View>
+
+        <View style={styles.btnsContainer}>
+          <TouchableNativeFeedback
+            background={TouchableNativeFeedback.Ripple(red)}
+            onPress={() => this.props.navigation.navigate('NewCard', {deck})} >
+            <View style={styles.addBtn}>
+              <Text>Add card</Text>
+            </View>
+          </TouchableNativeFeedback>
+          {deck.questions.length > 0 && (
+            <TouchableNativeFeedback
+              background={TouchableNativeFeedback.Ripple(white)}
+              onPress={() => this.props.navigation.navigate('Quiz', {deck})}>
+              <View style={styles.startBtn}>
+                <StartBtnText>Start quiz</StartBtnText>
+              </View>
+            </TouchableNativeFeedback>
+          )}
+        </View>
+      </View>
+    )
+  }
+}
 
 const mapStateToProps = decks => {
   return {decks};

@@ -12,9 +12,7 @@ const StartBtnText = styled.Text`
 
 class DeckList extends Component {
   componentDidMount() {
-    const { dispatch } = this.props;
-
-    dispatch(getDecks());
+    this.props.dispatch(getDecks());
   }
 
   keyExtractor = (item, index) => index;
@@ -26,7 +24,7 @@ class DeckList extends Component {
   }
 
   render() {
-    let decks = [];
+    const decks = [];
     for (let deck in this.props.decks) {
       if (this.props.decks.hasOwnProperty(deck)) {
         decks.push(this.props.decks[deck]);

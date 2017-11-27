@@ -13,21 +13,14 @@ const DeckView = styled.View`
   elevation: 3;
 `;
 
-class ListDeck extends Component {
-  static navigationOptions = ({ navigation }) => ({
-    title: `Deck title`
-  });
-
-  render() {
-    const { deck } = this.props;
-
-    return (
-      <DeckView>
-        <Text>{deck.title}</Text>
-        <Text>{deck.questions.length ? deck.questions.length : 0} cards</Text>
-      </DeckView>
-    )
-  }
+function ListDeck(props) {
+  const { deck: { title, questions: { length }} } = props;
+  return (
+    <DeckView>
+      <Text>{title}</Text>
+      <Text>{length ? length : 0} cards</Text>
+    </DeckView>
+  )
 }
 
 export default ListDeck;
